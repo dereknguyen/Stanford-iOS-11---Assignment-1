@@ -1,0 +1,43 @@
+private var indexOfOneAndOnlyFaceUpCard: Int? {
+    get {
+        ////  ORIGINAL IMPLEMENTATION
+        // var foundIndex: Int?
+        //
+        // for index in cards.indices {
+        //
+        //     if cards[index].isFacedUp {
+        //         if foundIndex == nil {
+        //             foundIndex = index
+        //         } else {
+        //             return nil
+        //         }
+        //     }
+        // }
+        //
+        // return foundIndex
+
+        //// Closure Implementation
+        ////
+        //// Long version of this closure
+        //
+        // let faceUpCardIndices = cards.indices.filter { (index) -> Bool in
+        //    return cards[index].isFacedUp
+        // }
+        //
+        //// Shorter version of the closure using Swift type inferences
+        // let faceUpCardIndices = cards.indices.filter { cards[$0].isFacedUp }
+        //
+        ////  Either I have one card face up (which is the first item in the face up card indices array)
+        ////     or I have multiple/none face up (which is nil)
+        // return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+
+
+        //// Shorter closure implementation using extension of Collection
+        return cards.indices.filter { cards[$0].isFacedUp }.oneAndOnly
+    }
+    set {
+        for index in cards.indices {
+            cards[index].isFacedUp = (index == newValue)
+        }
+    }
+}
